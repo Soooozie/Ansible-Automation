@@ -1,0 +1,36 @@
+---
+- name: Provisioning
+  hosts: webservers
+  remote_user: root
+
+  tasks:
+        - name: Install Apache
+          yum: name=httpd state=present
+
+        - name: Start Apache
+          service: name=httpd state=started enabled=yes
+
+        - name: Install MySQL-Server
+          yum: name=mariadb-server state=present
+
+        - name: Install MySQL
+          yum: name=mariadb state=present
+
+        - name: Start MySQL
+          service: name=mariadb state=started enabled=yes
+
+        - name: Install PHP
+          yum: name=php state=present
+
+        - name: Install PHP-MySQL
+          yum: name=php-mysql state=present
+
+        - name: Install PHP-GD
+          yum: name=php-gd state=present
+
+        - name: Install Python Date Util
+          yum: name=python-dateutil state=present
+
+  handlers:
+        - name: Reload Apache
+          service: name=httpd state=reloaded

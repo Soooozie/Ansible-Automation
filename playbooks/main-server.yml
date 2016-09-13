@@ -31,6 +31,23 @@
         - name: Install Python Date Util
           yum: name=python-dateutil state=present
 
+        - name: Open port 80
+          firewalld: port=80/tcp permanent=yes state=enabled
+
+        - name: http settings
+          firewalld: service=http permanent=yes state=enabled
+
+        - name: https settings
+          firewalld: service=https permanent=yes state=enabled
+
+        - name: Open port 3306
+          firewalld: port=3306/tcp permanent=yes state=enabled
+          notify: restart firewalld
+
+
   handlers:
         - name: Reload Apache
           service: name=httpd state=reloaded
+
+        - name: Restart firewalld
+          service: name=firewalld state=restarted

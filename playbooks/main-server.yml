@@ -4,32 +4,24 @@
   remote_user: root
 
   tasks:
-        - name: Install Apache
-          yum: name=httpd state=present
+        - name: Install Packages
+          yum: name={{ item }}
+          with_items:
+            - httpd
+            - mariadb-server
+            - mariadb
+            - php
+            - php-mysql
+            - php-gd
+            - python-dateutil
+            - unzip
+
 
         - name: Start Apache
           service: name=httpd state=started enabled=yes
 
-        - name: Install MySQL-Server
-          yum: name=mariadb-server state=present
-
-        - name: Install MySQL
-          yum: name=mariadb state=present
-
         - name: Start MySQL
           service: name=mariadb state=started enabled=yes
-
-        - name: Install PHP
-          yum: name=php state=present
-
-        - name: Install PHP-MySQL
-          yum: name=php-mysql state=present
-
-        - name: Install PHP-GD
-          yum: name=php-gd state=present
-
-        - name: Install Python Date Util
-          yum: name=python-dateutil state=present
 
         - name: Open port 80
           firewalld: port=80/tcp permanent=yes state=enabled
@@ -44,6 +36,19 @@
           firewalld: port=3306/tcp permanent=yes state=enabled
           notify: restart firewalld
 
+        - name: Download S3cmd
+          get_url:
+            url: https://github.com/s3tools/s3cmd/archive/v1.6.1.tar.gz
+            dest: /home
+
+        - unarchive: src=/home/s3cmd-1.6.1.tar.gz dest=/opt copy=no remote_src=yes
+
+        - name: Download wp-cli
+          get_url:
+            url: https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+            dest: /home
+
+        - file: path=/home/wp-cli.phar state=touch mode=0755
 
   handlers:
         - name: Reload Apache

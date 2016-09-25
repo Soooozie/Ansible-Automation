@@ -15,6 +15,7 @@
             - php-gd
             - python-dateutil
             - unzip
+            - MySQL-python
 
 
         - name: Start Apache
@@ -49,6 +50,29 @@
             dest: /home
 
         - file: path=/home/wp-cli.phar state=touch mode=0755
+
+
+#MySQL Secure Installation - requires MySQL-python package
+        - name: Delete anonymous users for ansible
+          action: mysql_user user="" host="{{ ansible_hostname }}" state="absent"
+
+        - name: Delete anonymous users
+          action: mysql_user user="" state="absent"
+
+        - name: Remove test database
+          action: mysql_db db=test state=absent
+
+        - name: Set MySQL Root Password
+          mysql_user: name=root host={{ item }} password={{ mysql_root_password }} state=present
+          with_items:
+            - 127.0.0.1
+            - ::1
+            - localhost
+
+        - name: Create backup user
+          user: name={{ user }} shell=/bin/bash home=/home/{{ user }}
+
+
 
   handlers:
         - name: Reload Apache

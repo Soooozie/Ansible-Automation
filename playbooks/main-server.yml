@@ -53,6 +53,7 @@
 
 
 #MySQL Secure Installation - requires MySQL-python package
+        - include_vars: vault.yml
         - name: Delete anonymous users for ansible
           action: mysql_user user="" host="{{ ansible_hostname }}" state="absent"
 
@@ -70,7 +71,7 @@
             - localhost
 
         - name: Create backup user
-          user: name={{ user }} shell=/bin/bash home=/home/{{ user }}
+          user: name=backups password={{ password }} shell=/bin/bash home=/home/backups
 
 
 

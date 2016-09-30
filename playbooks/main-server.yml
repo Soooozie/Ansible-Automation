@@ -16,7 +16,9 @@
             - python-dateutil
             - unzip
             - MySQL-python
-
+            - python
+            - python-devel
+            - python-boto
 
         - name: Start Apache
           service: name=httpd state=started enabled=yes
@@ -53,7 +55,10 @@
 
 
 #MySQL Secure Installation - requires MySQL-python package
-        - include_vars: vault.yml
+
+        - name: incude variables
+          include_vars: vars.yml
+
         - name: Delete anonymous users for ansible
           action: mysql_user user="" host="{{ ansible_hostname }}" state="absent"
 
@@ -73,6 +78,9 @@
         - name: Create backup user
           user: name=backups password={{ password }} shell=/bin/bash home=/home/backups
 
+#boto required to use S3 module 
+        - name: Download files from s3
+          s3: bucket={{ bucket_name }} access_key={{ access_key }} secret_key={{ secret_key }} object={{ object_name }} dest=/root mode=get
 
 
   handlers:

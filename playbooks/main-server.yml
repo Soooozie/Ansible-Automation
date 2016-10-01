@@ -16,9 +16,6 @@
             - python-dateutil
             - unzip
             - MySQL-python
-            - python
-            - python-devel
-            - python-boto
 
         - name: Start Apache
           service: name=httpd state=started enabled=yes
@@ -78,7 +75,23 @@
         - name: Create backup user
           user: name=backups password={{ password }} shell=/bin/bash home=/home/backups
 
-#boto required to use S3 module 
+        - name: Copy rpm file for boto dependencies
+          get_url:
+            url: http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-8.noarch.rpm
+            dest: /tmp
+
+        - name: Install rpm file
+          yum:
+            name: /tmp/epel-release-7-8.noarch.rpm
+            state: present
+
+        - name: Install pip
+          yum: name=python-pip
+
+        - name: Install boto with python-pip
+          pip: name=boto
+
+#boto required to use S3 module
         - name: Download files from s3
           s3: bucket={{ bucket_name }} access_key={{ access_key }} secret_key={{ secret_key }} object={{ object_name }} dest=/root mode=get
 

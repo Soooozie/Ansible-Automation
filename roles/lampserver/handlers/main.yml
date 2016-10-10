@@ -1,0 +1,6 @@
+---
+- name: Reload Apache
+  service: name=httpd state=reloaded
+
+- name: Restart firewalld
+  service: name=firewalld state=restarted

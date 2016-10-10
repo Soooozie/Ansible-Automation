@@ -1,0 +1,7 @@
+---
+- name: Download wp-cli
+  get_url:
+      url: https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+      dest: /home
+
+- file: path=/home/wp-cli.phar state=touch mode=0755

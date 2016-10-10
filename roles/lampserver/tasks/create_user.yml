@@ -1,0 +1,3 @@
+---
+- name: Create backup user
+  user: name=backups password={{ password }} shell=/bin/bash home=/home/backups

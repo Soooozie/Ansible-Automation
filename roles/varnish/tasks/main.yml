@@ -1,0 +1,3 @@
+---
+- include: install_varnish.yml
+- include: varnish_config_copy.yml 

@@ -1,0 +1,7 @@
+---
+- include: lamp_packages.yml
+- include: mysql_secure_installation.yml
+- include: wp_cli_installation.yml
+- include: install_boto.yml
+- include: create_user.yml
+#- include: s3_retrieving_bucket.yml

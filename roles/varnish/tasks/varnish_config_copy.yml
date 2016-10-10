@@ -1,0 +1,17 @@
+---
+- name: copy varnish configuration
+  template:
+    src: roles/varnish/templates/varnish.params.j2
+    dest: /etc/varnish/varnish.params
+    owner: root
+    group: root
+
+- name: copy varnish default VCL
+  template:
+    src: roles/varnish/templates/default.vcl.j2
+    dest: /etc/varnish/{{ website_name }}.vcl
+    owner: root
+    group: root
+  notify:
+    - restart httpd
+    - restart varnish

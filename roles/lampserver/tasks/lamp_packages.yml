@@ -1,0 +1,32 @@
+---
+- name: Install Packages
+  yum: name={{ item }}
+  with_items:
+        - httpd
+        - mariadb-server
+        - mariadb
+        - php
+        - php-mysql
+        - php-gd
+        - python-dateutil
+        - unzip
+        - MySQL-python
+
+- name: Start Apache
+  service: name=httpd state=started enabled=yes
+
+- name: Start MySQL
+  service: name=mariadb state=started enabled=yes
+
+- name: Open port 80
+  firewalld: port=80/tcp permanent=yes state=enabled
+
+- name: http settings
+  firewalld: service=http permanent=yes state=enabled
+
+- name: https settings
+  firewalld: service=https permanent=yes state=enabled
+
+- name: Open port 3306
+  firewalld: port=3306/tcp permanent=yes state=enabled
+  notify: restart firewalld

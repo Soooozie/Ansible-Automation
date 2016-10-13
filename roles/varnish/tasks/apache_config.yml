@@ -8,7 +8,7 @@
     mode: 0644
 
 - name: copy apache templates over for specific site configuration
-  templates:
+  template:
     src: roles/varnish/templates/website_name.conf.j2
     dest: /etc/httpd/conf.d/{{ website_name }}.conf
     owner: root

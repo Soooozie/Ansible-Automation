@@ -5,4 +5,4 @@
   roles:
     - lampserver
     - varnish
-    - s3 
+    - s3

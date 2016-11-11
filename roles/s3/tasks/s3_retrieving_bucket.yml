@@ -1,10 +1,22 @@
 ---
-- name: Download backups and docroot
-  s3:
-    s3_url: https://objects-us-west-1.dream.io
-    access_key: "{{ access_key }}"
-    secret_key: "{{ secret_key }}"
-    bucket: "{{ bucket_name }}"
-    object: "{{ object_name }}"
-    dest: /tmp
-    mode: get
+- name: s3 retrieve bucket
+  command: sh ~/retrieve_bucket.sh
+
+
+
+
+
+
+
+
+
+#cant seem to get this s3 module to work so I did the above stuff
+#- name: Download backups and docroot
+#  s3:
+#    s3_url: https://objects-us-west-1.dream.io
+#    access_key: "{{ access_key }}"
+#    secret_key: "{{ secret_key }}"
+#    bucket: "{{ bucket_name }}"
+#    object: "{{ object_name }}"
+#    dest: /tmp
+#    mode: get

@@ -1,5 +1,5 @@
 ---
-#- include: install_boto.yml
+- include: install_boto.yml
 - include: download_s3.yml
-#- include: s3_retrieving_bucket.yml
 - include: setup_backup_script.yml
+- include: s3_retrieving_bucket.yml

@@ -33,3 +33,5 @@
 - name: Open port 3306
   firewalld: port=3306/tcp permanent=yes state=enabled
   notify: restart firewalld
+
+- include: roles/lampserver/handlers/main.yml 

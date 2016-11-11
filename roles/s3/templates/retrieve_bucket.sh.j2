@@ -1,0 +1,34 @@
+#!/bin/bash
+
+source ./vars.sh
+
+s3cmd get $BUCKET_NAME/*.tar
+
+tar xf *.tar
+
+tar zxf *.tgz
+
+gunzip *.sql.gz
+
+mysql -e "CREATE DATABASE $DATABASE_NAME;"
+
+mysql $DATABASE_NAME < db_backup.sql
+
+mysql -e "CREATE USER $USERNAME@'%' IDENTIFIED BY '$DATABASE_PASSWORD';"
+mysql -e "GRANT ALL PRIVILEGES ON $DATABASE_NAME.* TO $USERNAME@'%' IDENTIFIED BY '$DATABASE_PASSWORD';"
+mysql -e "FLUSH PRIVILEGES;"
+
+#copy files from bucket into proper places
+cp -rf $BACKUP_FROM_BUCKET_DOCROOT /var/www/
+cp -rf $BACKUP_FROM_BUCKET_DB_CONFIG_1 /etc/
+cp -rf $BACKUP_FROM_BUCKET_DB_CONFIG_2 /etc/
+cp -rf $BACKUP_FROM_BUCKET_WSC_1 /etc/httpd/
+cp -rf $BACKUP_FROM_BUCKET_WSC_2 /etc/httpd/
+cp -rf $BACKUP_FROM_BUCKET_WSC_3 /etc/httpd/
+
+rm -rf *.tar
+rm -rf *.tgz
+rm -rf *.tar.gz
+rm -rf *.sql
+rm -rf var/
+rm -rf etc/

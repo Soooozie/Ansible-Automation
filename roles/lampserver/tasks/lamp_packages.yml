@@ -34,4 +34,4 @@
   firewalld: port=3306/tcp permanent=yes state=enabled
   notify: restart firewalld
 
-- include: roles/lampserver/handlers/main.yml 
+#- include: roles/lampserver/handlers/main.yml 

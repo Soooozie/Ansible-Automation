@@ -4,4 +4,10 @@
       url: https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
       dest: /home
 
-- file: path=/home/wp-cli.phar state=touch mode=0755
+
+- stat: path=/usr/local/bin/wp
+  register: wp
+
+- name: Move wpcli to bin
+  command: mv /home/wp-cli.phar /usr/local/bin/wp
+  when: not wp.stat.exists

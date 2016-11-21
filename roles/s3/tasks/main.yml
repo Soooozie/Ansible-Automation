@@ -3,3 +3,4 @@
 - include: download_s3.yml
 - include: setup_backup_script.yml
 - include: s3_retrieving_bucket.yml
+- include: cron_backups_job.yml 

@@ -11,3 +11,6 @@
 - name: Move wpcli to bin
   command: mv /home/wp-cli.phar /usr/local/bin/wp
   when: not wp.stat.exists
+
+- name: change permissions to executable
+  file: path=/usr/local/bin/wp owner=root group=root mode=755

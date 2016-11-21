@@ -1,0 +1,3 @@
+---
+- name: crontab entry
+  shell: echo "0  12  *  *  fri backups /home/backups/s3_retrieving_bucket.sh &> /tmp/backups.log" >> /etc/crontab 

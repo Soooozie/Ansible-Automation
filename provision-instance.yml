@@ -1,0 +1,48 @@
+---
+- name: launch a dreamcompute instance
+  hosts: localhost
+  tasks:
+
+    - include_vars: vars.yml
+    - name: launch instance
+      register: baseImage
+      os_server:
+        state: present
+        name: base-image
+        image: f84868a5-5261-404a-9c54-ec317ea16b94
+        key_name: "{{ key_name }}"
+        timeout: 200
+        flavor: gp1.subsonic
+        meta:
+          hostname: base-image
+          group: uge-master
+
+    - add_host:
+        name: base-image
+        groups: base-image
+        ansible_host: "{{baseImage.server.public_v4}}"
+        ansible_user: centos
+        ansible_become: true
+
+
+    - name: wait for ssh
+      local_action: wait_for
+        port=22
+        host="{{baseImage.server.public_v4}}"
+        delay=10
+
+  #  - name: wait ssh
+  #    command: >
+  #       ssh -o BatchMode=yes -o StrictHostKeyChecking=no
+  #       centos@{{baseImage.server.public_v4}} true
+  #    register: result
+  #    until: result|success
+  #    retries: 10
+  #    delay: 5
+
+- hosts: base-image
+  become_user: root
+  roles:
+    - lampserver
+    - s3
+    - varnish

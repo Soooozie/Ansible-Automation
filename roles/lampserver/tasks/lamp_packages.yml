@@ -11,12 +11,16 @@
         - python-dateutil
         - unzip
         - MySQL-python
+        - firewalld
 
 - name: Start Apache
   service: name=httpd state=started enabled=yes
 
 - name: Start MySQL
   service: name=mariadb state=started enabled=yes
+
+- name: Start firewalld
+  service: name=firewalld state=started enabled=yes 
 
 - name: Open port 80
   firewalld: zone=public port=80/tcp permanent=yes state=enabled
@@ -34,4 +38,4 @@
   firewalld: port=3306/tcp permanent=yes state=enabled
   notify: restart firewalld
 
-#- include: roles/lampserver/handlers/main.yml 
+#- include: roles/lampserver/handlers/main.yml

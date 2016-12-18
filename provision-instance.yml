@@ -31,15 +31,6 @@
         host="{{baseImage.server.public_v4}}"
         delay=10
 
-  #  - name: wait ssh
-  #    command: >
-  #       ssh -o BatchMode=yes -o StrictHostKeyChecking=no
-  #       centos@{{baseImage.server.public_v4}} true
-  #    register: result
-  #    until: result|success
-  #    retries: 10
-  #    delay: 5
-
 - hosts: base-image
   become_user: root
   roles:

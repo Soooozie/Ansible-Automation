@@ -31,6 +31,9 @@
         host="{{baseImage.server.public_v4}}"
         delay=10
 
+    - pause:
+        seconds: 20
+
 - hosts: base-image
   become_user: root
   roles:

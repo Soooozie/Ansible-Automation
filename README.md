@@ -1,5 +1,7 @@
 Experimenting with Ansible.  
 
+ansible-playbook provision-instance.yml
+
 This will definitely not be complete for a while. UPDATE: This is actually somewhat complete!!
 
 Working on creating a fully automated website backup using ansible. UPDATE: now fully automated. Sort of.

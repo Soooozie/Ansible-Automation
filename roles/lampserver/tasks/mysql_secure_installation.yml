@@ -11,7 +11,7 @@
   action: mysql_db db=test state=absent
 
 - name: Set MySQL Root Password
-  mysql_user: user=root host={{ item }} password={{ mysql_root_password }} priv=*.*:ALL,GRANT state=present
+  mysql_user: user=root host={{ item }} password="{{ randpassroot.stdout }}" priv=*.*:ALL,GRANT state=present
   with_items:
 #    - "{{ ansible_hostname }}"
     - 127.0.0.1

@@ -2,4 +2,5 @@
 - include: nginx.yml
 - include: certbot.yml
 - include: ssl_cert_gen.yml
-- include: semanage_ports.yml 
+- include: place_config_files.yml 
+- include: semanage_ports.yml

@@ -1,13 +1,8 @@
 ---
-- stat: path=~/.my.cnf
-  register: cnf
-
 - name: generate random password for root mysql user
   shell: echo $(date +%s | sha256sum | base64 | head -c 32)
   register: randpassroot
-  when: not cnf.stat.exists
 
 - name: generate random password for backups mysql user
   shell: echo $(date +%s | sha256sum | base64 | head -c 32)
   register: randpassbackups
-  when: not cnf.stat.exists 

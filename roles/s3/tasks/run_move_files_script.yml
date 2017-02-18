@@ -7,5 +7,9 @@
     group: root
     mode: 0755
 
+- stat: path={{ varnish_website_path }}
+  register: mv
+
 - name: move files
   command: sh ~/move_files.sh
+  when: not mv.stat.exists 

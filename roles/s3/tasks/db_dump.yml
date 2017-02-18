@@ -1,0 +1,6 @@
+---
+- name: restore database
+  mysql_db:
+    state: import
+    name: "{{ database }}"
+    target: /home/centos/db_backup.sql

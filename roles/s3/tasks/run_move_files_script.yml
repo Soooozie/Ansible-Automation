@@ -1,0 +1,11 @@
+---
+- name: copy move_files script
+  template:
+    src: roles/s3/templates/move_files.sh.j2
+    dest: ~/move_files.sh
+    owner: root
+    group: root
+    mode: 0755
+
+- name: move files
+  command: sh ~/move_files.sh

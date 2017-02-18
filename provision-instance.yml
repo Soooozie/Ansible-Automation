@@ -38,5 +38,5 @@
   become_user: root
   roles:
     - lampserver
-    - varnish 
+    - varnish
     - s3

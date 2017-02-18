@@ -1,0 +1,6 @@
+---
+- seport:
+    ports: {{ varnish_port }}
+    proto: tcp
+    setype: varnishd_port_t
+    state: present

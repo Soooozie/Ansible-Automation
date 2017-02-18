@@ -3,5 +3,5 @@
   register: letsencrypt
 
 - name: generate certificate
-  shell: certbot certonly --non-interactive --agree-tos --email {{ email }} -d staging.{{ website }}.com --webroot -w /var/www/{{ website }}/public_html
-  when: not letsencrypt.stat.exists 
+  shell: certbot certonly --non-interactive --agree-tos --email {{ email }} -d staging.{{ website }}.com --webroot -w /var/www/{{ website }}/public_html --staging
+  when: not letsencrypt.stat.exists

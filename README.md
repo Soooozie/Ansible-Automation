@@ -2,15 +2,14 @@ Experimenting with Ansible.
 
 ansible-playbook provision-instance.yml
 
-This will definitely not be complete for a while. UPDATE: This is actually somewhat complete!!
+This playbook is to help me automate website backup/migration.
 
-Working on creating a fully automated website backup using ansible. UPDATE: now fully automated. Sort of.
+Hosts file is not currently being tracked. UPDATE: a lot of files not being tracked. There's a .gitignore file that has some templates, vars, and my hosts file.
 
-Hosts file is not currently being tracked. UPDATE: a lot of files not being tracked. There's a .gitignore file that has templates, vars, and my hosts file. And some templates for varnish (default.vcl, varnish.params, httpd.conf). Using openstack.py now for hosts since I'm having ansible create an instance and provision it from scratch.
+Working on adding SSL role to generate certs and set up nginx ssl termination.
 
-I'm keeping the main-server.yml playbook for instances already running and provision-instance.yml is the playbook to run for having ansible create instance and run everything after that as well.
-
-There's obviously still some issues.  
+Known issues:
+-s3 setup and retrieval of objects and unarchiving of files is done via ansible running a bash script 
 
 Please feel free to take a look. Advice/critique welcome.
 

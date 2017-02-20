@@ -22,13 +22,17 @@
     owner: root
     group: root
     mode: 0644
-  notify: restart varnish
 
 - name: copy wp-config.php template
   template:
     src: roles/ssl/templates/wp-config.php.j2
-    dest: /var/www/{{ website }}/public_html/wp-config.php
+    dest: {{ docroot }}/wp-config.php
     owner: root
     group: root
     mode: 0644
-  notify: restart nginx 
+
+- name: restart varnish
+  service: name=varnish state=restarted
+
+- name: start and enable nginx
+  service: name=nginx state=started enabled=yes

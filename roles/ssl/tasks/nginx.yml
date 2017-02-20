@@ -1,6 +1,3 @@
 ---
 - name: install nginx
   yum: name=nginx state=installed
-
-- name: start and enable nginx
-  service: name=nginx state=started enabled=yes 

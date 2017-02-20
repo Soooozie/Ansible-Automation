@@ -1,6 +1,16 @@
 ---
-- seport:
-    ports: {{ varnish_port }}
-    proto: tcp
-    setype: varnishd_port_t
-    state: present
+- name: allow varnish to listen on desired port
+  shell: semanage port -m -t varnishd_port_t -p tcp {{ varnish_port }}
+
+- name: allow nginx to communicate with varnish on desired port
+  shell: setsebool -P httpd_can_network_connect 1
+
+# In order to use the seport ansible module, you need to install libselinux-python and policycoreutils-python on your host machine
+# I don't want to do this right now but I will probably get around to this at a later time
+# Just making a note here that I'm not sure how to allow nginx to communicate with varnish on the port via selinux with the seport module
+#
+#- seport:
+#    ports: 8081
+#    proto: tcp
+#    setype: varnishd_port_t
+#    state: present

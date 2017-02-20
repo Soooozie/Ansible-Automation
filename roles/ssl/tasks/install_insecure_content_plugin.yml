@@ -1,0 +1,10 @@
+---
+- name: install insecure content fixer wp plugin
+  command: wp plugin install ssl-insecure-content-fixer
+  args:
+    chdir: "{{ docroot }}"
+
+- name: activate insecure content fixer wp plugin
+  command: wp plugin activate ssl-insecure-content-fixer
+  args:
+    chdir: "{{ docroot }}" 

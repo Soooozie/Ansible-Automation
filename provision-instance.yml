@@ -24,6 +24,16 @@
         ansible_user: centos
         ansible_become: true
 
+    - cloudflare_dns:
+        zone: "{{ website }}"
+        record: "{{ record_name }}"
+        type: A
+        value: "{{baseImage3.server.public_v4}}"
+        state: present
+        solo: true
+        account_email: "{{ email }}"
+        account_api_token: "{{ cloudflare_api }}"
+      register: record
 
     - name: wait for ssh
       local_action: wait_for
@@ -32,7 +42,7 @@
         delay=10
 
     - pause:
-        seconds: 20
+       seconds: 20
 
 - hosts: base-image3
   become_user: root
@@ -40,3 +50,4 @@
     - lampserver
     - varnish
     - s3
+    - ssl

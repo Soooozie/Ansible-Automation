@@ -14,3 +14,5 @@ MAILTO=root
 # *  *  *  *  * user-name  command to be executed
 
 0  12  *  *  fri backups /home/backups/s3_backup_script.sh &> /tmp/backups.log
+
+0  12  *  *  sat root certbot renew --pre-hook "systemctl stop nginx" --post-hook "systemctl start nginx" &> /tmp/certbot.log

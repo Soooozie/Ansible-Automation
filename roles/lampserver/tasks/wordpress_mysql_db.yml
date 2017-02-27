@@ -6,6 +6,7 @@
 
 - mysql_user:
     name: "{{ wordpress_user }}"
+    host: localhost 
     password: "{{ wordpress_user_mysql_password }}"
     priv: '{{ database }}.*:ALL,GRANT'
     state: present

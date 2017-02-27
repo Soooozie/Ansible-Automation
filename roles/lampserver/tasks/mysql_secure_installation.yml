@@ -7,6 +7,9 @@
 - name: Delete anonymous users
   action: mysql_user user="" state="absent"
 
+- name: Delete root user with ansible hostname
+  action: mysql_user user="root" host="{{ ansible_hostname }}" state="absent"
+
 - name: Remove test database
   action: mysql_db db=test state=absent
 

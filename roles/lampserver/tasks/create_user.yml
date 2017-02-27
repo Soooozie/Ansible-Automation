@@ -3,7 +3,7 @@
   user: name=backups password={{ password }} shell=/bin/bash home=/home/backups
 
 - name: create backup user mysql creds
-  mysql_user: name=backups password="{{ randpassbackups.stdout }}" priv="{{ database }}.*:SELECT,LOCK TABLES" state=present
+  mysql_user: name=backups host=localhost password="{{ randpassbackups.stdout }}" priv="{{ database }}.*:SELECT,LOCK TABLES" state=present
 
 - name: template for backups my.cnf file
   template:
